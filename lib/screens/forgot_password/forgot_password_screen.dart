@@ -29,11 +29,11 @@ class ForgotPasswordScreen extends GetView<ForgotPassController> {
               /// app icon
               SizedBox(height: height * 0.05),
               Image.asset(AppIcons.appLogo,
-                height: 70,
+                height: 200,
               ),
 
               /// Don't Have an Account text
-              SizedBox(height: height * 0.05),
+              SizedBox(height: height * 0.01),
               RichText(
                 text: TextSpan(
                   children: [

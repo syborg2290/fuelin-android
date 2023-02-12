@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter UI',
+      title: 'FuelIn',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

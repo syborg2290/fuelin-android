@@ -33,28 +33,28 @@ class LoginScreen extends GetView<LoginController> {
                 SizedBox(height: height * 0.05),
                 Image.asset(
                   AppIcons.appLogo,
-                  height: 70,
+                  height: 200,
                 ),
 
                 /// Don't Have an Account text
-                SizedBox(height: height * 0.05),
+                SizedBox(height: height * 0.01),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Don\'t have an account?',
+                        text: 'Need to register to the portal?',
                         style: GoogleFonts.poppins(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w500,
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      const WidgetSpan(child: SizedBox(width: 10.0)),
+                      const WidgetSpan(child: SizedBox(width: 5.0)),
                       TextSpan(
-                        text: 'SIGN UP',
+                        text: 'Click here',
                         style: GoogleFonts.poppins(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
                           color: AppColors.whiteColor,
                         ),
                         recognizer: TapGestureRecognizer()
@@ -108,54 +108,6 @@ class LoginScreen extends GetView<LoginController> {
                       fontWeight: FontWeight.w400,
                       color: AppColors.whiteColor,
                     ),
-                  ),
-                ),
-
-                /// login with Google button
-                SizedBox(height: height * 0.08),
-                CustomButton(
-                  onTap: () {},
-                  btnText: '',
-                  btnColor: AppColors.whiteColor,
-                  btnDataRow: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AppIcons.googleIcon),
-                      const SizedBox(width: 8.0),
-                      Text(
-                        'Login with Google',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.blackColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                /// login with facebook
-                SizedBox(height: height * 0.02),
-                CustomButton(
-                  onTap: () {},
-                  btnText: '',
-                  btnColor: AppColors.whiteColor,
-                  btnDataRow: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AppIcons.fbIcon),
-                      const SizedBox(width: 8.0),
-                      Text(
-                        'Login with Facebook',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.blackColor,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],
