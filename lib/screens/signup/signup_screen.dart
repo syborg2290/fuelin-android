@@ -17,7 +17,9 @@ class SignupScreen extends GetView<SignupController> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     Get.put(SignupController());
+
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: SafeArea(
@@ -99,11 +101,78 @@ class SignupScreen extends GetView<SignupController> {
                   suffixIcon: null,
                 ),
 
+                /// con password field
+                SizedBox(height: height * 0.02),
+                CustomTextField(
+                  controller: controller.confirmpasswordController,
+                  obscureText: true,
+                  hintText: 'Confirm Password',
+                  keyboardType: TextInputType.text,
+                  prefixIconPath: AppIcons.lockIcon,
+                  suffixIcon: null,
+                ),
+
+                /// vehicle number field
+                SizedBox(height: height * 0.02),
+                CustomTextField(
+                  controller: controller.confirmpasswordController,
+                  obscureText: false,
+                  hintText: 'Vehicle Number',
+                  keyboardType: TextInputType.text,
+                  prefixIconPath: AppIcons.vehicleIcon,
+                  suffixIcon: null,
+                ),
+
+                /// nic field
+                SizedBox(height: height * 0.02),
+                CustomTextField(
+                  controller: controller.nic,
+                  obscureText: false,
+                  hintText: 'NIC',
+                  keyboardType: TextInputType.text,
+                  prefixIconPath: AppIcons.idcardIcon,
+                  suffixIcon: null,
+                ),
+
+                /// address field
+                SizedBox(height: height * 0.02),
+                CustomTextField(
+                  controller: controller.address,
+                  obscureText: false,
+                  hintText: 'Address',
+                  keyboardType: TextInputType.text,
+                  prefixIconPath: AppIcons.idcardIcon,
+                  suffixIcon: null,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: DropdownButton<String>(
+                    items: <String>[
+                      'Bike',
+                      '3 wheeler',
+                      'Car',
+                      'Van',
+                      'Bus',
+                      'Hevy'
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    hint: const Text("Vehicle type"),
+                    onChanged: (newValue) {
+                      controller.setSelectedVehiclType(newValue!);
+                    },
+                  ),
+                ),
+
                 /// signup button
                 SizedBox(height: height * 0.05),
                 CustomButton(
                   onTap: () {},
-                  btnText: 'Sign Up',
+                  btnText: 'Register',
                 ),
 
                 /// Terms of services

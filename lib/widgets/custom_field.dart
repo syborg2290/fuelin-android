@@ -10,15 +10,18 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final String prefixIconPath;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
-  const CustomTextField({Key? key,
+  const CustomTextField({
+    Key? key,
     required this.controller,
     required this.obscureText,
     required this.hintText,
     required this.keyboardType,
     required this.prefixIconPath,
     this.suffixIcon,
-}) : super(key: key);
+    this.prefixIcon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,9 @@ class CustomTextField extends StatelessWidget {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: Image.asset(prefixIconPath),
+          // prefixIcon: Image.asset(prefixIconPath,
+          //     height: 20.0, width: 20.0, color: Colors.grey, fit: BoxFit.none),
+          prefixText: "  ",
           suffixIcon: suffixIcon ?? const SizedBox(),
           hintText: hintText,
           hintStyle: GoogleFonts.poppins(
