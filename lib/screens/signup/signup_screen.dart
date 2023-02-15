@@ -36,7 +36,14 @@ class SignupScreen extends GetView<SignupController> {
                 SizedBox(height: height * 0.05),
                 Image.asset(
                   AppIcons.appLogo,
-                  height: 200,
+                  height: 50,
+                ),
+                const Text(
+                  "Register on fuelin",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
 
                 /// Don't Have an Account text
@@ -145,26 +152,77 @@ class SignupScreen extends GetView<SignupController> {
                   suffixIcon: null,
                 ),
 
+                SizedBox(height: height * 0.02),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
-                  child: DropdownButton<String>(
-                    items: <String>[
-                      'Bike',
-                      '3 wheeler',
-                      'Car',
-                      'Van',
-                      'Bus',
-                      'Hevy'
-                    ].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    hint: const Text("Vehicle type"),
-                    onChanged: (newValue) {
-                      controller.setSelectedVehiclType(newValue!);
-                    },
+                  padding: const EdgeInsets.only(right: 20, left: 20),
+                  child: Container(
+                    height: 50.0,
+                    width: width,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      items: <String>[
+                        'Bike',
+                        '3 wheeler',
+                        'Car',
+                        'Van',
+                        'Bus',
+                        'Hevy'
+                      ].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: const Text("Vehicle type"),
+                      onChanged: (newValue) {
+                        controller.setSelectedVehiclType(newValue!);
+                      },
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: height * 0.02),
+                CustomTextField(
+                  controller: controller.chassisNumber,
+                  obscureText: false,
+                  hintText: 'Chassis Number',
+                  keyboardType: TextInputType.text,
+                  prefixIconPath: AppIcons.idcardIcon,
+                  suffixIcon: null,
+                ),
+
+                SizedBox(height: height * 0.02),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20, left: 20),
+                  child: Container(
+                    height: 50.0,
+                    width: width,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      items: <String>[
+                        'Petrol',
+                        'Diesel',
+                      ].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: const Text("Fuel type"),
+                      onChanged: (newValue) {
+                        controller.setSelectedFuelType(newValue!);
+                      },
+                    ),
                   ),
                 ),
 
