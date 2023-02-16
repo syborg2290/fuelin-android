@@ -9,14 +9,17 @@ class CustomButton extends StatelessWidget {
   final Color? btnColor;
   final Color? onPrimaryColor;
   final Widget? btnDataRow;
+  final bool? isLoading;
 
-  const CustomButton({Key? key,
+  const CustomButton({
+    Key? key,
     required this.onTap,
     required this.btnText,
     this.btnColor = AppColors.primaryColor,
     this.btnDataRow,
     this.onPrimaryColor = AppColors.blackColor,
-}) : super(key: key);
+    this.isLoading,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +37,21 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
-        child: btnDataRow ?? Center(
-          child: Text(btnText!,
-            style: GoogleFonts.poppins(
-              color: AppColors.whiteColor,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+        child: isLoading!
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+              )
+            : btnDataRow ??
+                Center(
+                  child: Text(
+                    btnText!,
+                    style: GoogleFonts.poppins(
+                      color: AppColors.whiteColor,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
       ),
     );
   }

@@ -12,12 +12,12 @@ class ForgotPasswordScreen extends GetView<ForgotPassController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Get.put(ForgotPassController());
     return Scaffold(
       backgroundColor: AppColors.mainColor,
-
       body: SafeArea(
         child: SizedBox(
           height: height,
@@ -28,7 +28,8 @@ class ForgotPasswordScreen extends GetView<ForgotPassController> {
             children: [
               /// app icon
               SizedBox(height: height * 0.05),
-              Image.asset(AppIcons.appLogo,
+              Image.asset(
+                AppIcons.appLogo,
                 height: 200,
               ),
 
@@ -58,6 +59,12 @@ class ForgotPasswordScreen extends GetView<ForgotPassController> {
                 keyboardType: TextInputType.emailAddress,
                 prefixIconPath: AppIcons.emailIcon,
                 suffixIcon: null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please fill the field!';
+                  }
+                  return "";
+                },
               ),
             ],
           ),

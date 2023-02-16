@@ -15,9 +15,11 @@ class LoginScreen extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Get.put(LoginController());
+
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: SafeArea(
@@ -66,48 +68,74 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                 ),
 
-                /// email field
-                SizedBox(height: height * 0.06),
-                CustomTextField(
-                  controller: controller.emailController,
-                  obscureText: false,
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIconPath: AppIcons.emailIcon,
-                  suffixIcon: null,
-                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      /// email field
+                      SizedBox(height: height * 0.06),
+                      CustomTextField(
+                        controller: controller.emailController,
+                        obscureText: false,
+                        hintText: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIconPath: AppIcons.emailIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// password field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.passwordController,
-                  obscureText: true,
-                  hintText: 'Password',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.lockIcon,
-                  suffixIcon: null,
-                ),
+                      /// password field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.passwordController,
+                        obscureText: true,
+                        hintText: 'Password',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.lockIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// Login button
-                SizedBox(height: height * 0.05),
-                CustomButton(
-                  onTap: () {},
-                  btnText: 'Login',
-                ),
+                      /// Login button
+                      SizedBox(height: height * 0.05),
+                      CustomButton(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                          }
+                        },
+                        btnText: 'Login',
+                        isLoading: false,
+                      ),
 
-                /// forgot password Button
-                SizedBox(height: height * 0.01),
-                TextButton(
-                  onPressed: () {
-                    Get.to(const ForgotPasswordScreen());
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.whiteColor,
-                    ),
+                      /// forgot password Button
+                      SizedBox(height: height * 0.01),
+                      TextButton(
+                        onPressed: () {
+                          Get.to(const ForgotPasswordScreen());
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

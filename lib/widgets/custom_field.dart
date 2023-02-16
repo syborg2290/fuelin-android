@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final String prefixIconPath;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final String Function(String?) validator;
 
   const CustomTextField({
     Key? key,
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     required this.prefixIconPath,
     this.suffixIcon,
     this.prefixIcon,
+    required this.validator,
   }) : super(key: key);
 
   @override
@@ -40,11 +42,19 @@ class CustomTextField extends StatelessWidget {
           fontSize: 14.0,
           fontWeight: FontWeight.w400,
         ),
+        validator: validator,
         obscureText: obscureText,
         cursorColor: AppColors.mainColor,
         controller: controller,
         keyboardType: keyboardType,
         decoration: InputDecoration(
+          errorStyle: const TextStyle(
+            fontSize: 10.0,
+          ),
+          // errorBorder: OutlineInputBorder(
+          //   borderSide: const BorderSide(color: Colors.red),
+          //   borderRadius: BorderRadius.circular(35.0),
+          // ),
           border: InputBorder.none,
           // prefixIcon: Image.asset(prefixIconPath,
           //     height: 20.0, width: 20.0, color: Colors.grey, fit: BoxFit.none),

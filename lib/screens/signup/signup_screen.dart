@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fuelin_android/controllers/signup_controller.dart';
+import 'package:fuelin_android/screens/home/home_screen.dart';
 import 'package:fuelin_android/screens/login/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,7 @@ class SignupScreen extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -75,162 +77,261 @@ class SignupScreen extends GetView<SignupController> {
                   ),
                 ),
 
-                /// full name field
-                SizedBox(height: height * 0.06),
-                CustomTextField(
-                  controller: controller.nameController,
-                  obscureText: false,
-                  hintText: 'Full Name',
-                  keyboardType: TextInputType.name,
-                  prefixIconPath: AppIcons.userIcon,
-                  suffixIcon: null,
-                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      /// full name field
+                      SizedBox(height: height * 0.06),
+                      CustomTextField(
+                        controller: controller.nameController,
+                        obscureText: false,
+                        hintText: 'Full Name',
+                        keyboardType: TextInputType.name,
+                        prefixIconPath: AppIcons.userIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// email field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.emailController,
-                  obscureText: false,
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIconPath: AppIcons.emailIcon,
-                  suffixIcon: null,
-                ),
+                      /// email field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.emailController,
+                        obscureText: false,
+                        hintText: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIconPath: AppIcons.emailIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// password field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.passwordController,
-                  obscureText: true,
-                  hintText: 'Password',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.lockIcon,
-                  suffixIcon: null,
-                ),
+                      /// password field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.passwordController,
+                        obscureText: true,
+                        hintText: 'Password',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.lockIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// con password field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.confirmpasswordController,
-                  obscureText: true,
-                  hintText: 'Confirm Password',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.lockIcon,
-                  suffixIcon: null,
-                ),
+                      /// con password field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.confirmpasswordController,
+                        obscureText: true,
+                        hintText: 'Confirm Password',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.lockIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// vehicle number field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.confirmpasswordController,
-                  obscureText: false,
-                  hintText: 'Vehicle Number',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.vehicleIcon,
-                  suffixIcon: null,
-                ),
+                      /// vehicle number field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.confirmpasswordController,
+                        obscureText: false,
+                        hintText: 'Vehicle Number',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.vehicleIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// nic field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.nic,
-                  obscureText: false,
-                  hintText: 'NIC',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.idcardIcon,
-                  suffixIcon: null,
-                ),
+                      /// nic field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.nic,
+                        obscureText: false,
+                        hintText: 'NIC',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.idcardIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                /// address field
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.address,
-                  obscureText: false,
-                  hintText: 'Address',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.idcardIcon,
-                  suffixIcon: null,
-                ),
+                      /// address field
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.address,
+                        obscureText: false,
+                        hintText: 'Address',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.idcardIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
 
-                SizedBox(height: height * 0.02),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: Container(
-                    height: 50.0,
-                    width: width,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: DropdownButton<String>(
-                      isExpanded: true,
-                      items: <String>[
-                        'Bike',
-                        '3 wheeler',
-                        'Car',
-                        'Van',
-                        'Bus',
-                        'Hevy'
-                      ].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      hint: const Text("Vehicle type"),
-                      onChanged: (newValue) {
-                        controller.setSelectedVehiclType(newValue!);
-                      },
-                    ),
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.mobileNoController,
+                        obscureText: false,
+                        hintText: 'Mobile Number',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.idcardIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
+
+                      SizedBox(height: height * 0.02),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20, left: 20),
+                        child: Container(
+                          height: 50.0,
+                          width: width,
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: AppColors.whiteColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: FutureBuilder(
+                              future: controller.getAllResgiterVehicleType(),
+                              builder: (context, snapshot) {
+                                return DropdownButton<String>(
+                                  isExpanded: true,
+                                  items: snapshot.data?.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  hint: const Text("Vehicle type"),
+                                  onChanged: (newValue) {
+                                    controller.setSelectedVehiclType(newValue!);
+                                  },
+                                );
+                              }),
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        controller: controller.chassisNumber,
+                        obscureText: false,
+                        hintText: 'Chassis Number',
+                        keyboardType: TextInputType.text,
+                        prefixIconPath: AppIcons.idcardIcon,
+                        suffixIcon: null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please fill the field!';
+                          }
+                          return "";
+                        },
+                      ),
+
+                      SizedBox(height: height * 0.02),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20, left: 20),
+                        child: Container(
+                            height: 50.0,
+                            width: width,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppColors.whiteColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: FutureBuilder(
+                                future: controller.getAllRegsiterFuelType(),
+                                builder: (context, snapshot) {
+                                  return DropdownButton<String>(
+                                    isExpanded: true,
+                                    items: snapshot.data?.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    hint: const Text("Fuel type"),
+                                    onChanged: (newValue) {
+                                      controller
+                                          .setSelectedVehiclType(newValue!);
+                                    },
+                                  );
+                                })),
+                      ),
+
+                      /// signup button
+                      SizedBox(height: height * 0.05),
+
+                      CustomButton(
+                        onTap: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()),
+                          );
+                          if (_formKey.currentState!.validate()) {
+                            // final res = await controller.createUser(
+                            //   controller.nameController.text,
+                            //   controller.passwordController.text,
+                            //   controller.confirmpasswordController.text,
+                            //   controller.emailController.text,
+                            //   controller.mobileNoController.text,
+                            //   controller.vehicleNumber.text,
+                            //   controller.nic.text,
+                            //   controller.address.text,
+                            //   controller.selectedType.value,
+                            //   controller.chassisNumber.text,
+                            //   controller.fuelType.value,
+                            // );
+                            // if (res) {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => const HomeScreen()),
+                            // );
+                            // }
+                          }
+                        },
+                        btnText: 'Register',
+                        isLoading: controller.isLoadingSubmit.value,
+                      ),
+                    ],
                   ),
-                ),
-
-                SizedBox(height: height * 0.02),
-                CustomTextField(
-                  controller: controller.chassisNumber,
-                  obscureText: false,
-                  hintText: 'Chassis Number',
-                  keyboardType: TextInputType.text,
-                  prefixIconPath: AppIcons.idcardIcon,
-                  suffixIcon: null,
-                ),
-
-                SizedBox(height: height * 0.02),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: Container(
-                    height: 50.0,
-                    width: width,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: DropdownButton<String>(
-                      isExpanded: true,
-                      items: <String>[
-                        'Petrol',
-                        'Diesel',
-                      ].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      hint: const Text("Fuel type"),
-                      onChanged: (newValue) {
-                        controller.setSelectedFuelType(newValue!);
-                      },
-                    ),
-                  ),
-                ),
-
-                /// signup button
-                SizedBox(height: height * 0.05),
-                CustomButton(
-                  onTap: () {},
-                  btnText: 'Register',
                 ),
 
                 /// Terms of services
