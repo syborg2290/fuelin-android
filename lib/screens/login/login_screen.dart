@@ -126,8 +126,8 @@ class LoginScreen extends GetView<LoginController> {
                             } else {
                               CustomDialogs.showMyDialog(
                                   context,
-                                  "Error With Regsitering User",
-                                  res["message"]);
+                                  "Error With User Login",
+                                  "Please check your credentials");
                             }
                           }
                         },
