@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fuelin_android/controllers/signup_controller.dart';
 import 'package:fuelin_android/screens/home/home_screen.dart';
 import 'package:fuelin_android/screens/login/login_screen.dart';
+import 'package:fuelin_android/utils/custom_dialogs.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -299,32 +300,37 @@ class SignupScreen extends GetView<SignupController> {
 
                       CustomButton(
                         onTap: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const HomeScreen()),
+                          // );
                           if (_formKey.currentState!.validate()) {
-                            // final res = await controller.createUser(
-                            //   controller.nameController.text,
-                            //   controller.passwordController.text,
-                            //   controller.confirmpasswordController.text,
-                            //   controller.emailController.text,
-                            //   controller.mobileNoController.text,
-                            //   controller.vehicleNumber.text,
-                            //   controller.nic.text,
-                            //   controller.address.text,
-                            //   controller.selectedType.value,
-                            //   controller.chassisNumber.text,
-                            //   controller.fuelType.value,
-                            // );
-                            // if (res) {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => const HomeScreen()),
-                            // );
-                            // }
+                            final res = await controller.createUser(
+                              controller.nameController.text,
+                              controller.passwordController.text,
+                              controller.confirmpasswordController.text,
+                              controller.emailController.text,
+                              controller.mobileNoController.text,
+                              controller.vehicleNumber.text,
+                              controller.nic.text,
+                              controller.address.text,
+                              controller.selectedType.value,
+                              controller.chassisNumber.text,
+                              controller.fuelType.value,
+                            );
+                            if (res["status"]) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()),
+                              );
+                            } else {
+                              CustomDialogs.showMyDialog(
+                                  context,
+                                  "Error With Regsitering User",
+                                  res["message"]);
+                            }
                           }
                         },
                         btnText: 'Register',

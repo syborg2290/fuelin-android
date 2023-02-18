@@ -16,7 +16,7 @@ Future<http.Response> registerUser(
   String chassis_number,
   String fuel_type,
 ) async {
-  String apiUrl = '${dotenv.env['BASE_URL']}/vehicalType';
+  String apiUrl = '${dotenv.env['BASE_URL']}/register';
   final response = http.post(
     Uri.parse(apiUrl),
     headers: <String, String>{
@@ -34,6 +34,24 @@ Future<http.Response> registerUser(
       'vehical_type': vehical_type,
       'chassis_number': chassis_number,
       'fuel_type_id': fuel_type,
+    }),
+  );
+  return response;
+}
+
+Future<http.Response> loginUser(
+  String email,
+  String password,
+) async {
+  String apiUrl = '${dotenv.env['BASE_URL']}/login';
+  final response = http.post(
+    Uri.parse(apiUrl),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'email': email,
+      'password': password,
     }),
   );
   return response;

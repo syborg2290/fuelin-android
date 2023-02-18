@@ -62,7 +62,7 @@ class SignupController extends GetxController
     return typesList;
   }
 
-  Future<bool> createUser(
+  Future<dynamic> createUser(
     String name,
     String password,
     String comPassword,
@@ -97,10 +97,14 @@ class SignupController extends GetxController
       chassis_number,
       fuelTypeId[0].id,
     );
-    final resData = jsonDecode(res.body)["data"];
-    prefs.setString('name', resData['name']);
-    prefs.setString('user_role', resData['user_role']);
-    prefs.setString('id', resData['id']);
-    return true;
+    if (jsonDecode(res.body)["success"]) {
+      final resData = jsonDecode(res.body)["data"];
+      prefs.setString('name', resData['name']);
+      prefs.setString('user_role', resData['user_role']);
+      prefs.setString('id', resData['id']);
+      return {"status": true, "message": "success"};
+    } else {
+      return {"status": false, "message": jsonDecode(res.body)["message"]};
+    }
   }
 }

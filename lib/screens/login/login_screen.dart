@@ -4,7 +4,9 @@ import 'package:fuelin_android/constants/app_colors.dart';
 import 'package:fuelin_android/constants/app_icons.dart';
 import 'package:fuelin_android/controllers/login_controller.dart';
 import 'package:fuelin_android/screens/forgot_password/forgot_password_screen.dart';
+import 'package:fuelin_android/screens/home/home_screen.dart';
 import 'package:fuelin_android/screens/signup/signup_screen.dart';
+import 'package:fuelin_android/utils/custom_dialogs.dart';
 import 'package:fuelin_android/widgets/custom_button.dart';
 import 'package:fuelin_android/widgets/custom_field.dart';
 import 'package:get/get.dart';
@@ -109,11 +111,24 @@ class LoginScreen extends GetView<LoginController> {
                       /// Login button
                       SizedBox(height: height * 0.05),
                       CustomButton(
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
+                            final res = await controller.loginUser(
+                              controller.emailController.text,
+                              controller.passwordController.text,
                             );
+                            if (res["status"]) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()),
+                              );
+                            } else {
+                              CustomDialogs.showMyDialog(
+                                  context,
+                                  "Error With Regsitering User",
+                                  res["message"]);
+                            }
                           }
                         },
                         btnText: 'Login',
