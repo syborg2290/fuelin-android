@@ -118,13 +118,17 @@ class LoginScreen extends GetView<LoginController> {
                               controller.passwordController.text,
                             );
                             if (res["status"]) {
+                              // ignore: use_build_context_synchronously
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()),
+                                    builder: (context) => HomeScreen(
+                                          userRole: res["role"],
+                                        )),
                               );
                             } else {
-                              CustomDialogs.showMyDialog(
+                              // ignore: use_build_context_synchronously
+                              await CustomDialogs.showMyDialog(
                                   context,
                                   "Error With User Login",
                                   "Please check your credentials");

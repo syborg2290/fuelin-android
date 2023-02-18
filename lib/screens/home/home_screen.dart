@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import '../../constants/app_colors.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+  final int userRole;
+  const HomeScreen({required this.userRole, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class HomeScreen extends GetView<HomeController> {
                     ),
                   ),
                 ),
-                Text("Please use above QR to obtain your fuel quota."),
+                const Text("Please use above QR to obtain your fuel quota."),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

@@ -102,7 +102,11 @@ class SignupController extends GetxController
       prefs.setString('name', resData['name']);
       prefs.setString('user_role', resData['user_role']);
       prefs.setString('id', resData['id']);
-      return {"status": true, "message": "success"};
+      return {
+        "status": true,
+        "role": resData['user_role'],
+        "message": "success"
+      };
     } else {
       return {"status": false, "message": jsonDecode(res.body)["message"]};
     }

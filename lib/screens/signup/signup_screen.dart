@@ -320,13 +320,17 @@ class SignupScreen extends GetView<SignupController> {
                               controller.fuelType.value,
                             );
                             if (res["status"]) {
+                              // ignore: use_build_context_synchronously
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()),
+                                    builder: (context) => HomeScreen(
+                                          userRole: res["role"],
+                                        )),
                               );
                             } else {
-                              CustomDialogs.showMyDialog(
+                              // ignore: use_build_context_synchronously
+                              await CustomDialogs.showMyDialog(
                                   context,
                                   "Error With Regsitering User",
                                   res["message"]);
