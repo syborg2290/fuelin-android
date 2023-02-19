@@ -8,12 +8,43 @@ class CustomDialogs {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(message),
-              ],
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                10.0,
+              ),
+            ),
+          ),
+          contentPadding: const EdgeInsets.only(
+            top: 5.0,
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          alignment: Alignment.center,
+          title: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.start,
+              style: const TextStyle(
+                color: Colors.red,
+              ),
+            ),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Center(
+                      child: Text(
+                    message,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  )),
+                ],
+              ),
             ),
           ),
           actions: <Widget>[

@@ -28,7 +28,7 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: isLoading! ? null : onTap,
         style: ElevatedButton.styleFrom(
           primary: btnColor,
           onPrimary: onPrimaryColor,
@@ -38,8 +38,11 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         child: isLoading!
-            ? const CircularProgressIndicator(
-                color: Colors.white,
+            // ignore: prefer_const_constructors
+            ? Center(
+                child: const CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               )
             : btnDataRow ??
                 Center(

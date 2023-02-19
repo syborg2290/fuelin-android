@@ -62,7 +62,7 @@ class SignupController extends GetxController
     return typesList;
   }
 
-  Future<dynamic> createUser(
+  Future<dynamic> createUserController(
     String name,
     String password,
     String comPassword,
