@@ -12,7 +12,7 @@ class SignupController extends GetxController
   var allFuelTypes = [];
   final selectedType = "".obs;
   final fuelType = "".obs;
-  final isLoadingSubmit = false.obs;
+  RxBool isLoadingSubmit = false.obs;
 
   void setSelectedVehiclType(String value) {
     selectedType.value = value;
@@ -75,6 +75,7 @@ class SignupController extends GetxController
     String chassis_number,
     String fuel_type,
   ) async {
+    setLoadingSubmit(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final vehicleTypeId = allVehicleTypes
         .where((element) =>
@@ -100,14 +101,16 @@ class SignupController extends GetxController
     if (jsonDecode(res.body)["success"]) {
       final resData = jsonDecode(res.body)["data"];
       prefs.setString('name', resData['name']);
-      prefs.setString('user_role', resData['user_role']);
-      prefs.setString('id', resData['id']);
+      prefs.setInt('user_role', resData['user_role']);
+      prefs.setInt('id', resData['id']);
+      setLoadingSubmit(false);
       return {
         "status": true,
         "role": resData['user_role'],
         "message": "success"
       };
     } else {
+      setLoadingSubmit(false);
       return {"status": false, "message": jsonDecode(res.body)["message"]};
     }
   }

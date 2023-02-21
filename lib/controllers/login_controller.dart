@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoginController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, StateMixin {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isLoading = false.obs;
@@ -18,12 +18,12 @@ class LoginController extends GetxController
     isLoading.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     http.Response res = await loginUser(email, password);
-
     if (jsonDecode(res.body)["success"]) {
+      
       final resData = jsonDecode(res.body)["data"];
       prefs.setString('name', resData['name']);
-      prefs.setString('user_role', resData['user_role']);
-      prefs.setString('id', resData['id']);
+      prefs.setInt('user_role', resData['user_role']);
+      prefs.setInt('id', resData['id']);
       isLoading.value = false;
       return {
         "status": true,

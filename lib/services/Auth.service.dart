@@ -44,6 +44,7 @@ Future<http.Response> loginUser(
   String password,
 ) async {
   String apiUrl = '${dotenv.env['BASE_URL']}/login';
+
   final response = http.post(
     Uri.parse(apiUrl),
     headers: <String, String>{
