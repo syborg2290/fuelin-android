@@ -178,25 +178,30 @@ class HomeScreen extends GetView<HomeController> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: width * 0.06,
+                    ),
                     PieChart(
                       dataMap: {
-                        "Used Quota":
-                            controller.initialData.value["quota_used"],
-                        "Avaialble Quota":
-                            controller.initialData.value["quota_limit"] -
-                                controller.initialData.value["quota_used"]
+                        "Used Quota": controller.initialData.value["quota_used"]
+                            .toDouble(),
+                        "Avaialble Quota": controller
+                                .initialData.value["quota_limit"]
+                                .toDouble() -
+                            controller.initialData.value["quota_used"]
+                                .toDouble()
                       },
-                      animationDuration:const Duration(milliseconds: 800),
+                      animationDuration: const Duration(milliseconds: 800),
                       chartLegendSpacing: 32,
                       chartRadius: MediaQuery.of(context).size.width / 3.2,
                       colorList: const <Color>[
-                        Color(0xfffd79a8),
+                        Color.fromARGB(255, 5, 102, 46),
                         Color(0xffe17055),
                       ],
                       initialAngleInDegree: 0,
                       chartType: ChartType.ring,
                       ringStrokeWidth: 32,
-                      centerText: "HYBRID",
+                      centerText: "Quota Status",
                       legendOptions: const LegendOptions(
                         showLegendsInRow: false,
                         legendPosition: LegendPosition.right,

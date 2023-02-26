@@ -58,7 +58,7 @@ class HomeController extends GetxController
       String customer_code = resData["customer"]["customer"]["code"];
 
       String vehicle_type_name = (await getAllResgiterVehicleType())
-          .where((o) => o['id'] == int.parse(vehicle_type))
+          .where((o) => o['name'] == vehicle_type)
           .toList()[0]["name"];
 
       String fuel_type_name = (await getAllRegsiterFuelType())
@@ -76,6 +76,11 @@ class HomeController extends GetxController
         "customer_code": customer_code
       };
       change(null, status: RxStatus.success());
-    } else if (role == 2) {}
+    } else if (role == 2) {
+      http.Response res = await getConsumerInformation(id);
+      print(res.body);
+      final resData = jsonDecode(res.body)["data"];
+      print(resData);
+    }
   }
 }
