@@ -25,7 +25,9 @@ class HomeScreen extends GetView<HomeController> {
           backgroundColor: AppColors.primaryColor,
           centerTitle: true,
           title: Text(
-              "Customer " + controller.initialData.value["customer_code"],
+              controller.initialData.value["type"] == "customer"
+                  ? "Customer " + controller.initialData.value["customer_code"]
+                  : controller.initialData.value["name"],
               style:
                   const TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
           actions: <Widget>[
@@ -45,187 +47,198 @@ class HomeScreen extends GetView<HomeController> {
             Get.back();
             return Future.value(true);
           },
-          child: SafeArea(
-            child: SizedBox(
-              height: height,
-              width: width,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.black, width: 2 // border color
+          child: controller.initialData.value["type"] == "customer"
+              ? SafeArea(
+                  child: SizedBox(
+                    height: height,
+                    width: width,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 30.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black,
+                                    width: 2 // border color
+                                    ),
                               ),
-                        ),
-                        child: QrImage(
-                          data: controller.initialData.value["customerId"]
-                              .toString(),
-                          version: QrVersions.auto,
-                          size: width * 0.7,
-                          gapless: false,
-                        ),
-                      ),
-                    ),
-                    const Text(
-                        "Please use above QR to obtain your fuel quota."),
-                    Padding(
-                      padding: EdgeInsets.only(left: width * 0.2),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            SizedBox(
-                              height: width * 0.1,
+                              child: QrImage(
+                                data: controller.initialData.value["customerId"]
+                                    .toString(),
+                                version: QrVersions.auto,
+                                size: width * 0.7,
+                                gapless: false,
+                              ),
                             ),
-                            Container(
-                              child: Row(
+                          ),
+                          const Text(
+                              "Please use above QR to obtain your fuel quota."),
+                          Padding(
+                            padding: EdgeInsets.only(left: width * 0.2),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  const Text(
-                                    "* Vehicle Type",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700),
+                                  SizedBox(
+                                    height: width * 0.1,
                                   ),
-                                  const Text(
-                                    " : ",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          "* Vehicle Type",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const Text(
+                                          " : ",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Opacity(
+                                          opacity: 0.6,
+                                          child: Text(
+                                            controller.initialData
+                                                .value["vehicle_type"]
+                                                .toUpperCase(),
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  Opacity(
-                                    opacity: 0.6,
-                                    child: Text(
-                                      controller
-                                          .initialData.value["vehicle_type"]
-                                          .toUpperCase(),
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700),
+                                  SizedBox(
+                                    height: width * 0.03,
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          "* Vehicle Number",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const Text(
+                                          " : ",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Opacity(
+                                          opacity: 0.6,
+                                          child: Text(
+                                            controller.initialData
+                                                .value["vehicle_no"],
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: width * 0.03,
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          "* Fuel Type",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const Text(
+                                          " : ",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Opacity(
+                                          opacity: 0.6,
+                                          child: Text(
+                                            controller
+                                                .initialData.value["fuel_type"],
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   )
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: width * 0.03,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    "* Vehicle Number",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  const Text(
-                                    " : ",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Opacity(
-                                    opacity: 0.6,
-                                    child: Text(
-                                      controller
-                                          .initialData.value["vehicle_no"],
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  )
-                                ],
+                          ),
+                          SizedBox(
+                            height: width * 0.06,
+                          ),
+                          PieChart(
+                            dataMap: {
+                              "Used Quota": controller
+                                  .initialData.value["quota_used"]
+                                  .toDouble(),
+                              "Avaialble Quota": controller
+                                      .initialData.value["quota_limit"]
+                                      .toDouble() -
+                                  controller.initialData.value["quota_used"]
+                                      .toDouble()
+                            },
+                            animationDuration:
+                                const Duration(milliseconds: 800),
+                            chartLegendSpacing: 32,
+                            chartRadius:
+                                MediaQuery.of(context).size.width / 3.2,
+                            colorList: const <Color>[
+                              Color.fromARGB(255, 5, 102, 46),
+                              Color(0xffe17055),
+                            ],
+                            initialAngleInDegree: 0,
+                            chartType: ChartType.ring,
+                            ringStrokeWidth: 32,
+                            centerText: "Quota Status",
+                            legendOptions: const LegendOptions(
+                              showLegendsInRow: false,
+                              legendPosition: LegendPosition.right,
+                              showLegends: true,
+                              legendShape: BoxShape.circle,
+                              legendTextStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(
-                              height: width * 0.03,
+                            chartValuesOptions: const ChartValuesOptions(
+                              showChartValueBackground: true,
+                              showChartValues: true,
+                              showChartValuesInPercentage: false,
+                              showChartValuesOutside: false,
+                              decimalPlaces: 1,
                             ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    "* Fuel Type",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  const Text(
-                                    " : ",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Opacity(
-                                    opacity: 0.6,
-                                    child: Text(
-                                      controller.initialData.value["fuel_type"],
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                            // gradientList: ---To add gradient colors---
+                            // emptyColorGradient: ---Empty Color gradient---
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: width * 0.06,
-                    ),
-                    PieChart(
-                      dataMap: {
-                        "Used Quota": controller.initialData.value["quota_used"]
-                            .toDouble(),
-                        "Avaialble Quota": controller
-                                .initialData.value["quota_limit"]
-                                .toDouble() -
-                            controller.initialData.value["quota_used"]
-                                .toDouble()
-                      },
-                      animationDuration: const Duration(milliseconds: 800),
-                      chartLegendSpacing: 32,
-                      chartRadius: MediaQuery.of(context).size.width / 3.2,
-                      colorList: const <Color>[
-                        Color.fromARGB(255, 5, 102, 46),
-                        Color(0xffe17055),
-                      ],
-                      initialAngleInDegree: 0,
-                      chartType: ChartType.ring,
-                      ringStrokeWidth: 32,
-                      centerText: "Quota Status",
-                      legendOptions: const LegendOptions(
-                        showLegendsInRow: false,
-                        legendPosition: LegendPosition.right,
-                        showLegends: true,
-                        legendShape: BoxShape.circle,
-                        legendTextStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      chartValuesOptions: const ChartValuesOptions(
-                        showChartValueBackground: true,
-                        showChartValues: true,
-                        showChartValuesInPercentage: false,
-                        showChartValuesOutside: false,
-                        decimalPlaces: 1,
-                      ),
-                      // gradientList: ---To add gradient colors---
-                      // emptyColorGradient: ---Empty Color gradient---
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+                  ),
+                )
+              : SafeArea(
+                  child: SizedBox(
+                  height: height,
+                  width: width,
+                )),
         ),
       );
     },
@@ -241,7 +254,7 @@ class HomeScreen extends GetView<HomeController> {
                 child: Opacity(
                   opacity: 0.7,
                   child: Text(
-                    'Loading QR...',
+                    'Loading FuelIn...',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20.0,

@@ -1,10 +1,12 @@
 import 'package:fuelin_android/screens/login/login_screen.dart';
 import 'package:fuelin_android/services/Common.service.dart';
+import 'package:fuelin_android/services/Station.service.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:fuelin_android/services/Consumer.service.dart';
 import 'dart:convert';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin, StateMixin {
@@ -16,6 +18,13 @@ class HomeController extends GetxController
   void onInit() {
     super.onInit();
     getInitialData();
+    // startBardcodeScanner();
+  }
+
+  startBardcodeScanner() async {
+    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '0xffe17055', "Cancel", true, ScanMode.QR);
+    print(barcodeScanRes);
   }
 
   logout() async {
@@ -75,12 +84,14 @@ class HomeController extends GetxController
         "quota_used": quota_used,
         "customer_code": customer_code
       };
+      initialData.value["type"] = "customer";
       change(null, status: RxStatus.success());
     } else if (role == 2) {
-      http.Response res = await getConsumerInformation(id);
-      print(res.body);
+      http.Response res = await getStationInformation(id);
       final resData = jsonDecode(res.body)["data"];
-      print(resData);
+      initialData.value = resData["user"]["station"];
+      initialData.value["type"] = "station";
+      change(null, status: RxStatus.success());
     }
   }
 }
