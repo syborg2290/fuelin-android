@@ -238,6 +238,34 @@ class HomeScreen extends GetView<HomeController> {
                   child: SizedBox(
                   height: height,
                   width: width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: height * 0.2,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: controller.scanQRCode,
+                              child: Image.asset(
+                                'assets/icons/qr-code.png',
+                                height: 150,
+                                width: 150,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Please tap on above button to scan."),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 )),
         ),
       );

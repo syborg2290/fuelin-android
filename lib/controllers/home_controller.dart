@@ -6,12 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:fuelin_android/services/Consumer.service.dart';
 import 'dart:convert';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter/services.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin, StateMixin {
   final selectedType = "".obs;
   RxBool isLoading = true.obs;
   final initialData = {}.obs;
+  var getResult = 'QR Code Result'.obs;
 
   @override
   void onInit() {
@@ -24,6 +27,20 @@ class HomeController extends GetxController
   //       '0xffe17055', "Cancel", true, ScanMode.QR);
   //   print(barcodeScanRes);
   // }
+
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      getResult.value = qrCode;
+
+      print("QRCode_Result:--");
+      print(qrCode);
+    } on PlatformException {
+      getResult.value = 'Failed to scan QR Code.';
+    }
+  }
 
   logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
