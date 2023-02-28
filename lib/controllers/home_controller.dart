@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:fuelin_android/services/Consumer.service.dart';
 import 'dart:convert';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin, StateMixin {
@@ -18,14 +17,13 @@ class HomeController extends GetxController
   void onInit() {
     super.onInit();
     getInitialData();
-    // startBardcodeScanner();
   }
 
-  startBardcodeScanner() async {
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        '0xffe17055', "Cancel", true, ScanMode.QR);
-    print(barcodeScanRes);
-  }
+  // startBardcodeScanner() async {
+  //   String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+  //       '0xffe17055', "Cancel", true, ScanMode.QR);
+  //   print(barcodeScanRes);
+  // }
 
   logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
