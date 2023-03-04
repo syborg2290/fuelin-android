@@ -17,7 +17,6 @@ class SignupScreen extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -79,7 +78,6 @@ class SignupScreen extends GetView<SignupController> {
                 ),
 
                 Form(
-                  key: _formKey,
                   child: Column(
                     children: <Widget>[
                       /// full name field
@@ -305,8 +303,8 @@ class SignupScreen extends GetView<SignupController> {
                           //   MaterialPageRoute(
                           //       builder: (context) => const HomeScreen()),
                           // );
-                          if (_formKey.currentState!.validate()) {
-                            final res = await controller.createUser(
+                          if (controller.emailController.text != "") {
+                            final res = await controller.createUserController(
                               controller.nameController.text,
                               controller.passwordController.text,
                               controller.confirmpasswordController.text,
@@ -331,10 +329,11 @@ class SignupScreen extends GetView<SignupController> {
                             } else {
                               // ignore: use_build_context_synchronously
                               await CustomDialogs.showMyDialog(
-                                  context,
-                                  "Error With Regsitering User",
-                                  res["message"]);
+                                  context, "Error", res["message"]);
                             }
+                          } else {
+                            await CustomDialogs.showMyDialog(context,
+                                "Validation", "All fields are required!");
                           }
                         },
                         btnText: 'Register',

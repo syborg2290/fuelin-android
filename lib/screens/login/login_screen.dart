@@ -17,7 +17,6 @@ class LoginScreen extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Get.put(LoginController());
@@ -71,7 +70,6 @@ class LoginScreen extends GetView<LoginController> {
                 ),
 
                 Form(
-                  key: _formKey,
                   child: Column(
                     children: <Widget>[
                       /// email field
@@ -112,8 +110,9 @@ class LoginScreen extends GetView<LoginController> {
                       SizedBox(height: height * 0.05),
                       CustomButton(
                         onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final res = await controller.loginUser(
+                          if (controller.emailController.text != "" &&
+                              controller.passwordController.text != "") {
+                            final res = await controller.loginUserController(
                               controller.emailController.text,
                               controller.passwordController.text,
                             );
@@ -128,15 +127,16 @@ class LoginScreen extends GetView<LoginController> {
                               );
                             } else {
                               // ignore: use_build_context_synchronously
-                              await CustomDialogs.showMyDialog(
-                                  context,
-                                  "Error With User Login",
+                              await CustomDialogs.showMyDialog(context, "Error",
                                   "Please check your credentials");
                             }
+                          } else {
+                            await CustomDialogs.showMyDialog(context,
+                                "Validation", "All fields are required!");
                           }
                         },
                         btnText: 'Login',
-                        isLoading: false,
+                        isLoading: controller.isLoading.value,
                       ),
 
                       /// forgot password Button
